@@ -1,22 +1,61 @@
 /* src/pages/Dashboard/Dashboard.module.css */
 
 .dashboardContainer {
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  .logoutButton {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #ff4d4f;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .logoutButton:hover {
-    background-color: #d9363e;
-  }
-  
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.createButton {
+  background-color: #52c41a;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.createButton:hover {
+  background-color: #389e0d;
+}
+
+.logoutButton {
+  background-color: #ff4d4f;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logoutButton:hover {
+  background-color: #d9363e;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.productGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}

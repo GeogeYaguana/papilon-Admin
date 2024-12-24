@@ -15,6 +15,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
 }) => {
   return (
     <button
+      type="button"        // <--- IMPORTANTÍSIMO
       className={styles.button}
       onClick={onClick}
       disabled={disabled}

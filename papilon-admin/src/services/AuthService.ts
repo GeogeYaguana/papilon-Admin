@@ -18,7 +18,7 @@ export class AuthService {
    */
   static async login(usuario_nombre: string, password: string): Promise<LoginResponse> {
     try {
-      const response = await axiosInstance.post<LoginResponse>('/login', {
+      const response = await axiosInstance.post<LoginResponse>('/login_local', {
         usuario_nombre,
         password,
       });

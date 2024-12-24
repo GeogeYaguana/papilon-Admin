@@ -1,59 +1,94 @@
 // src/pages/Dashboard/Dashboard.tsx
 
 import React, { useEffect, useState } from 'react';
+import { useAuth } from '../hooks/useAuth';
 import { AuthService } from '../services/AuthService';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../services/axiosInstance';
 import styles from './Dashboard.module.css';
+import { ProductService, Product } from '../services/ProductService';
+import ProductCard from '../components/ProductCard/ProductCard';
 
-interface Cliente {
-  id_cliente: number;
-  // Agrega otros campos según tu modelo de datos
-}
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  const [cliente, setCliente] = useState<Cliente | null>(null);
+  const { logout, state } = useAuth();  // asumiendo que obtienes userId de state.userId
+  const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string>('');
 
+  // 1. Cargar productos para este usuario local
   useEffect(() => {
-    const fetchCliente = async () => {
-      const id_usuario = AuthService.getUserId();
-      if (id_usuario) {
-        try {
-          const response = await axiosInstance.get('/get_cliente', {
-            params: { id_usuario },
-          });
-          setCliente(response.data);
-        } catch (err: any) {
-          setError(err.response?.data?.error || 'Error al obtener cliente');
-        }
-      }
-    };
+    if (state.userId) {
+      ProductService.getProductsByUser(state.userId)
+        .then((response) => {
+          setProducts(response);
+        })
+        .catch((err) => {
+          console.error(err);
+          setError('Error al obtener productos');
+        });
+    }
+  }, [state.userId]);
 
-    fetchCliente();
-  }, []);
-
+  // 2. Manejar cierre de sesión
   const handleLogout = () => {
     AuthService.logout();
-    navigate('/login');
+    logout();            // si estás usando un AuthContext
+    navigate('/login');  // redirigir a login
+  };
+
+  // 3. Manejar creación de nuevo producto
+  const handleCreateProduct = () => {
+    navigate('/create-product');
+    // o abrir un modal, dependiendo de tu diseño
+  };
+
+  // 4. Manejar edición de producto
+  const handleEditProduct = (product: Product) => {
+    // ejemplo: redirigir a /edit-product/[id_producto]
+    navigate(`/edit-product/${product.id_producto}`);
+  };
+
+  // 5. Manejar eliminación de producto
+  const handleDeleteProduct = async (id_producto: number) => {
+    const confirmar = window.confirm('¿Estás seguro de eliminar este producto?');
+    if (!confirmar) return;
+
+    try {
+      await ProductService.deleteProduct(id_producto);
+      // Actualizar el estado local para quitar ese producto
+      setProducts((prev) => prev.filter((p) => p.id_producto !== id_producto));
+    } catch (err) {
+      console.error(err);
+      alert('Error al eliminar el producto');
+    }
   };
 
   return (
     <div className={styles.dashboardContainer}>
-      <h1>Bienvenido al Dashboard</h1>
-      {error && <p className={styles.error}>{error}</p>}
-      {cliente ? (
-        <div className={styles.clienteInfo}>
-          <p>ID Cliente: {cliente.id_cliente}</p>
-          {/* Muestra otros datos del cliente según sea necesario */}
+      <div className={styles.header}>
+        <h1>Bienvenido al Dashboard</h1>
+        <div className={styles.actions}>
+          <button className={styles.createButton} onClick={handleCreateProduct}>
+            Crear Producto
+          </button>
+          <button className={styles.logoutButton} onClick={handleLogout}>
+            Cerrar Sesión
+          </button>
         </div>
-      ) : (
-        !error && <p>Cargando información del cliente...</p>
-      )}
-      <button className={styles.logoutButton} onClick={handleLogout}>
-        Cerrar Sesión
-      </button>
+      </div>
+
+      {error && <p className={styles.error}>{error}</p>}
+
+      <div className={styles.productGrid}>
+        {products.map((product) => (
+          <ProductCard
+            key={product.id_producto}
+            product={product}
+            onEdit={handleEditProduct}
+            onDelete={handleDeleteProduct}
+          />
+        ))}
+      </div>
     </div>
   );
 };
