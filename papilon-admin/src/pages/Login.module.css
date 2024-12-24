@@ -1,0 +1,10 @@
+/* src/pages/Login/Login.module.css */
+
+.loginPageContainer {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;    /* Centra verticalmente */
+    height: 100vh;          /* Ocupa todo el alto de la ventana */
+    background-color: #f0f2f5;
+  }
+  
