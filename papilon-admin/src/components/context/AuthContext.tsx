@@ -1,14 +1,18 @@
 // src/context/AuthContext.tsx
-
 import { createContext, useReducer, ReactNode, Dispatch } from 'react';
-import { AuthState,AuthAction } from '../../types/types';
+import { AuthState, AuthAction } from '../../types/types';
 
-// Estado inicial
+// Leer valores de localStorage
+const storedToken = localStorage.getItem('authToken');
+const storedUserId = localStorage.getItem('id_usuario');
+const storedUserType = localStorage.getItem('tipo_usuario');
+
+// Estado inicial dinámico
 const initialState: AuthState = {
-  isAuthenticated: false,
-  token: null,
-  userId: null,
-  userType: null,
+  isAuthenticated: !!storedToken, 
+  token: storedToken,
+  userId: storedUserId ? parseInt(storedUserId, 10) : null,
+  userType: storedUserType,
 };
 
 // Crear el contexto

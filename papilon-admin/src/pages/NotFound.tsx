@@ -7,7 +7,7 @@ const NotFound: React.FC = () => {
   return (
     <div className={styles.notFoundContainer}>
       <h1>404 - Página No Encontrada</h1>
-      <Link to="/login" className={styles.homeLink}>
+      <Link to="/dashboard" className={styles.homeLink}>
         Volver al Inicio
       </Link>
     </div>

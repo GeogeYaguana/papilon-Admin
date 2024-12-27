@@ -1,11 +1,11 @@
 // src/routes.tsx
-// src/routes.tsx
 import React from 'react';
 import { createBrowserRouter, RouterProvider, RouteObject, Navigate } from 'react-router-dom';
 import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
 import NotFound from '../pages/NotFound';
 import { AuthService } from '../services/AuthService';
+import CreateProduct from '../pages/CreateProduct'; // <--- Importar la página de crear producto
 
 // Componente para rutas protegidas
 const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
@@ -33,6 +33,15 @@ const routes: RouteObject[] = [
     element: (
       <ProtectedRoute>
         <Dashboard />
+      </ProtectedRoute>
+    ),
+  },
+  // Nueva ruta para crear producto
+  {
+    path: '/create-product',
+    element: (
+      <ProtectedRoute>
+        <CreateProduct />
       </ProtectedRoute>
     ),
   },

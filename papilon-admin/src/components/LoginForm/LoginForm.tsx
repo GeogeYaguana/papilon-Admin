@@ -1,5 +1,4 @@
 // src/components/LoginForm/LoginForm.tsx
-
 import React, { useState } from 'react';
 import UsernameInput from '../UsernameInput/UsernameInput';
 import PasswordInput from '../PasswordInput/PasswordInput';
@@ -15,10 +14,11 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
   const [usuarioNombre, setUsuarioNombre] = useState('');
   const [password, setPassword] = useState('');
-  const [loginType, setLoginType] = useState<'standard' | 'local'>('local'); // Añadimos el tipo de login
+  const [loginType, setLoginType] = useState<'standard' | 'local'>('local');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  // <--- Asegúrate de que login reciba token, userId y userType
   const { login } = useAuth();
 
   const handleSubmit = async () => {
@@ -30,17 +30,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
       if (loginType === 'local') {
         data = await AuthService.login(usuarioNombre, password);
       } else {
-        // Si tienes otra ruta para otros tipos de login, llama a esa función aquí
-        // Por ejemplo: data = await AuthService.login(usuarioNombre, password);
         data = await AuthService.login(usuarioNombre, password);
       }
 
       if (data.tipo_usuario === 'local') {
-        // Solo establecer el estado de autenticación si el tipo de usuario es 'local'
         login(data.token, data.id_usuario, data.tipo_usuario);
         onLoginSuccess();
       } else {
-        // Mostrar mensaje de error y no autenticar
         setErrorMsg('Solo los usuarios locales pueden iniciar sesión.');
       }
     } catch (error: any) {
@@ -53,13 +49,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
   return (
     <div className={styles.loginFormContainer}>
       <h2 className={styles.title}>Iniciar Sesión</h2>
-      
+
       {errorMsg && <p className={styles.error}>{errorMsg}</p>}
 
       <UsernameInput value={usuarioNombre} onChange={setUsuarioNombre} />
       <PasswordInput value={password} onChange={setPassword} />
 
-      {/* Opcional: Selector de Tipo de Login */}
       <div className={styles.loginTypeContainer}>
         <label>
           <input
