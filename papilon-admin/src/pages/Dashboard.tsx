@@ -7,13 +7,14 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Dashboard.module.css';
 import { ProductService, Product } from '../services/ProductService';
 import ProductCard from '../components/ProductCard/ProductCard';
-
+import axiosInstance from '../services/axiosInstance';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  const { logout, state } = useAuth();  // asumiendo que obtienes userId de state.userId
+  const { logout, state } = useAuth(); // Asumiendo que obtienes userId de state.userId
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string>('');
+  const [, setFacturas] = useState<any[]>([]);
 
   // 1. Cargar productos para este usuario local
   useEffect(() => {
@@ -32,8 +33,8 @@ const Dashboard: React.FC = () => {
   // 2. Manejar cierre de sesión
   const handleLogout = () => {
     AuthService.logout();
-    logout();            // si estás usando un AuthContext
-    navigate('/login');  // redirigir a login
+    logout(); // Si estás usando un AuthContext
+    navigate('/login'); // Redirigir a login
   };
 
   // 3. Manejar creación de nuevo producto
@@ -44,7 +45,7 @@ const Dashboard: React.FC = () => {
 
   // 4. Manejar edición de producto
   const handleEditProduct = (product: Product) => {
-    // ejemplo: redirigir a /edit-product/[id_producto]
+    // Ejemplo: redirigir a /edit-product/[id_producto]
     navigate(`/edit-product/${product.id_producto}`);
   };
 
@@ -63,6 +64,31 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  // 6. Manejar ver canjes
+  const handleViewCanjes = () => {
+    navigate('/canjes');
+  };
+
+  // 7. Manejar registrar factura
+  const handleRegisterFactura = () => {
+    navigate('/registrar-factura');
+  };
+
+  // 8. Manejar ver facturas
+  const handleViewFacturas = async () => {
+    try {
+      const response = await axiosInstance.get(`/facturas/usuario/${state.userId}`);
+      setFacturas(response.data.facturas);
+      navigate('/facturas', { state: { facturas: response.data.facturas } });
+    } catch (err: any) {
+      console.error(err);
+      alert(
+        err.response?.data?.error ||
+          'Error al obtener facturas para este usuario'
+      );
+    }
+  };
+
   return (
     <div className={styles.dashboardContainer}>
       <div className={styles.header}>
@@ -70,6 +96,21 @@ const Dashboard: React.FC = () => {
         <div className={styles.actions}>
           <button className={styles.createButton} onClick={handleCreateProduct}>
             Crear Producto
+          </button>
+          <button className={styles.viewCanjesButton} onClick={handleViewCanjes}>
+            Ver Canjes
+          </button>
+          <button
+            className={styles.registerFacturaButton}
+            onClick={handleRegisterFactura}
+          >
+            Registrar Factura
+          </button>
+          <button
+            className={styles.viewFacturasButton}
+            onClick={handleViewFacturas}
+          >
+            Ver Facturas
           </button>
           <button className={styles.logoutButton} onClick={handleLogout}>
             Cerrar Sesión

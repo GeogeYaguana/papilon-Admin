@@ -1,0 +1,139 @@
+/* Canje.module.css */
+
+.canjeContainer {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .loading {
+    font-size: 1.2rem;
+    color: #007bff;
+  }
+  
+  .error {
+    color: #dc3545;
+    margin-bottom: 15px;
+  }
+  
+  .canjeTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+  }
+  
+  .canjeTable th,
+  .canjeTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .canjeTable th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .canjeTable tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .canjeTable tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  .changeEstadoButton {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .changeEstadoButton:hover {
+    background-color: #218838;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+  }
+  
+  .modalContent h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .selectEstado {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .modalActions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .confirmButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .cancelButton {
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .confirmButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .cancelButton:hover {
+    background-color: #c82333;
+  }
+  

@@ -1,0 +1,135 @@
+/* src/pages/RegistrarFactura/RegistrarFactura.module.css */
+
+.registrarFacturaContainer {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .registrarFacturaContainer h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formGroup label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .formGroup select,
+  .formGroup input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .detallesContainer {
+    border-top: 1px solid #ddd;
+    padding-top: 1.5rem;
+  }
+  
+  .detallesContainer h2 {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .detalleRow {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .detalleRow .formGroup {
+    flex: 1;
+  }
+  
+  .removeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #ff4d4f;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 24px;
+    text-align: center;
+  }
+  
+  .removeButton:hover {
+    background-color: #ff7875;
+  }
+  
+  .addButton {
+    padding: 0.5rem 1rem;
+    background-color: #52c41a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    align-self: flex-start;
+    transition: background-color 0.3s ease;
+  }
+  
+  .addButton:hover {
+    background-color: #73d13d;
+  }
+  
+  .totalContainer {
+    text-align: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .submitButton {
+    padding: 0.75rem;
+    background-color: #1890ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: #40a9ff;
+  }
+  
+  .error {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .success {
+    color: green;
+    font-weight: bold;
+    text-align: center;
+  }
+  

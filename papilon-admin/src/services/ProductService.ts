@@ -18,7 +18,17 @@ export interface Product {
   descuento: string | null;
   fecha_creacion: string | null;
 }
-
+export interface UpdateProductData {
+  id_categoria?: number | null;
+  id_local?: number;
+  nombre?: string;
+  descripcion?: string | null;
+  precio?: string;
+  puntos_necesario?: number | null;
+  foto_url?: string | null;
+  disponibilidad?: boolean;
+  descuento?: string | null;
+}
 /**
  * Interfaz para la respuesta del endpoint de Local
  */
@@ -38,7 +48,14 @@ export class ProductService {
     const response = await axiosInstance.get<Product[]>(`/productos/usuario/${id_usuario}`);
     return response.data;
   }
-
+   /**
+   * Obtiene un producto por su ID
+   * GET /producto/:id_producto
+   */
+   static async getProductById(id_producto: number): Promise<Product> {
+    const response = await axiosInstance.get<Product>(`/producto/${id_producto}`);
+    return response.data;
+  }
   /**
    * Obtiene el id_local asociado a un id_usuario
    * GET /locales/usuario/:id_usuario
@@ -63,10 +80,10 @@ export class ProductService {
 
   /**
    * Actualiza un producto
-   * PUT /productos/:id_producto
+   * PUT /producto/:id_producto
    */
-  static async updateProduct(id_producto: number, productData: Partial<Product>): Promise<Product> {
-    const response = await axiosInstance.put<Product>(`/productos/${id_producto}`, productData);
+  static async updateProduct(id_producto: number, data: UpdateProductData): Promise<Product> {
+    const response = await axiosInstance.put<Product>(`/producto/${id_producto}`, data);
     return response.data;
   }
 
@@ -78,3 +95,4 @@ export class ProductService {
     await axiosInstance.delete(`/producto/${id_producto}`);
   }
 }
+
