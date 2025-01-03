@@ -10,6 +10,9 @@ import EditProduct from '../pages/EditProduct'; // <--- Importar el componente d
 import RegistrarFactura from '../pages/RegistrarFactura';
 import Facturas from '../pages/Facturas';
 import Canjes from '../pages/Canjes'; // <--- Importar el componente Canjes
+import MainLayout from '../layouts/mainLayout';
+import Drawer from '../layouts/ClippedDrawer';
+
 const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
   const isAuthenticated = AuthService.isAuthenticated();
   if (!isAuthenticated) {
@@ -25,13 +28,19 @@ const routes: RouteObject[] = [
   },
   {
     path: '/login',
-    element: <Login />,
+    element: (
+      <MainLayout>
+        <Login/>
+      </MainLayout>
+    ),
   },
   {
     path: '/dashboard',
     element: (
       <ProtectedRoute>
+        <Drawer>
         <Dashboard />
+        </Drawer>
       </ProtectedRoute>
     ),
   },
@@ -56,7 +65,9 @@ const routes: RouteObject[] = [
     path: '/registrar-factura', // Ruta para Registrar Factura
     element: (
       <ProtectedRoute>
+        <Drawer>
         <RegistrarFactura />
+        </Drawer>
       </ProtectedRoute>
     ),
   },
@@ -64,7 +75,9 @@ const routes: RouteObject[] = [
     path: '/facturas', // <--- Nueva ruta para el componente Facturas
     element: (
       <ProtectedRoute>
-        <Facturas />
+        <Drawer>
+          <Facturas />
+        </Drawer>
       </ProtectedRoute>
     ),
   },
@@ -72,7 +85,9 @@ const routes: RouteObject[] = [
     path: '/canjes', // <--- Nueva ruta para el componente Canjes
     element: (
       <ProtectedRoute>
-        <Canjes />
+        <Drawer>
+          <Canjes />
+        </Drawer>
       </ProtectedRoute>
     ),
   },

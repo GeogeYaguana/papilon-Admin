@@ -7,6 +7,7 @@ import { AuthService } from '../../services/AuthService';
 import { useAuth } from '../../hooks/useAuth';
 import styles from './LoginForm.module.css';
 
+
 interface LoginFormProps {
   onLoginSuccess: () => void;
 }
@@ -45,9 +46,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
       setLoading(false);
     }
   };
+  const logoUrl = "https://firebasestorage.googleapis.com/v0/b/papilon-baa86.appspot.com/o/LineaGrafica%2FLOGO_PAPILON_VERTICAL.png?alt=media&token=2cb61925-7c58-4b82-95a7-c190dd3fe67f";
 
   return (
     <div className={styles.loginFormContainer}>
+      <img src={logoUrl} alt='Logo' className="register-logo"/>
       <h2 className={styles.title}>Iniciar Sesión</h2>
 
       {errorMsg && <p className={styles.error}>{errorMsg}</p>}

@@ -21,4 +21,9 @@
     font-weight: bold;
     margin-bottom: 1rem;
   }
-  
+
+  .register-logo {
+    width: 150px;         
+    height: auto;         
+    margin-bottom: 30px; 
+  }

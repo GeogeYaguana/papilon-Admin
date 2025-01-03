@@ -1,0 +1,142 @@
+/* navbarLayout.css */
+
+.navbar-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    position: relative;
+  }
+  
+  /* Logo y menú lateral */
+  .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .menu-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .logo {
+    height: 40px;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    padding: 20px;
+    z-index: 999;
+  }
+  
+  .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .menu li:hover {
+    background-color: #f9f9f9;
+  }
+  
+  /* Barra de búsqueda */
+  .navbar-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-bar {
+    width: 50%;
+    padding: 8px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    outline: none;
+  }
+  
+  .search-bar:focus {
+    border-color: #ff6b00;
+  }
+  
+  /* Notificaciones, idioma y perfil */
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .notifications {
+    position: relative;
+  }
+  
+  .notification-icon {
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .notification-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #ff6b00;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 2px 5px;
+    border-radius: 50%;
+  }
+  
+  .language {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .language-icon {
+    width: 20px;
+    margin-right: 5px;
+  }
+  
+  .profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  /* Contenido dinámico */
+  .content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
