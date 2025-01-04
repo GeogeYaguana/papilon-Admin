@@ -93,6 +93,7 @@ const Dashboard: React.FC = () => {
     <div className={styles.dashboardContainer}>
       <div className={styles.header}>
         <h1>Bienvenido al Dashboard</h1>
+        {/*
         <div className={styles.actions}>
           <button className={styles.createButton} onClick={handleCreateProduct}>
             Crear Producto
@@ -116,6 +117,7 @@ const Dashboard: React.FC = () => {
             Cerrar Sesión
           </button>
         </div>
+        */}
       </div>
 
       {error && <p className={styles.error}>{error}</p>}

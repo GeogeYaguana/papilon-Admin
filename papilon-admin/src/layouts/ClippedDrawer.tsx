@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
@@ -11,9 +11,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate
-import './ClippedDrawer.css';
-
+import { useAuth } from '../hooks/useAuth';
+import { AuthService } from '../services/AuthService';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../services/axiosInstance';
+import '../layouts/ClippedDrawer.css';
 const drawerWidth = 240;
 
 interface DrawerProps {
@@ -23,6 +25,8 @@ interface DrawerProps {
 const ClippedDrawer: React.FC<DrawerProps> = ({ children }) => {
 
   const navigate = useNavigate(); // Hook para manejar navegación
+  const { logout,state } = useAuth(); // Asumiendo que obtienes userId de state.userId
+  const [, setFacturas] = useState<any[]>([]);
 
   // Define acciones específicas para cada botón
   const handleProductosClick = () => {
@@ -37,9 +41,24 @@ const ClippedDrawer: React.FC<DrawerProps> = ({ children }) => {
     navigate('/registrar-factura'); // Redirigir a la ruta /registrar-facturas
   };
 
-  const handleVerFacturasClick = () => {
-    navigate('/facturas'); // Redirigir a la ruta /registrar-facturas
-  };
+  const handleVerFacturasClick = async() => {
+    try {
+      const response = await axiosInstance.get(`/facturas/usuario/${state.userId}`);
+      setFacturas(response.data.facturas);
+      navigate('/facturas', { state: { facturas: response.data.facturas } });
+    } catch (err: any) {
+      console.error(err);
+      alert(
+        err.response?.data?.error ||
+          'Error al obtener facturas para este usuario'
+      );
+    }  };
+
+    const handleLogout = () => {
+      AuthService.logout();
+      logout(); // Si estás usando un AuthContext
+      navigate('/login'); // Redirigir a login
+    };
 
   const logoUrl = 'https://firebasestorage.googleapis.com/v0/b/papilon-baa86.appspot.com/o/LineaGrafica%2FLOGO_PAPILON%20HORIZONTAL.png?alt=media&token=b9f4dd30-8ae4-4b03-909b-f0292c284e18'
   return (
@@ -51,7 +70,12 @@ const ClippedDrawer: React.FC<DrawerProps> = ({ children }) => {
         }}>
         <Toolbar>
           <img src={logoUrl} alt='Logo' className="logoH"/>
+          <div style={{ flexGrow: 1 }}></div>
+          <button className="logoutButton" onClick={handleLogout}>
+            Cerrar Sesión
+          </button>
         </Toolbar>
+
       </AppBar>
       <Drawer
         variant="permanent"

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { AuthService } from './AuthService';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://192.168.56.1:5000', // Ajusta según tu backend
+  baseURL: 'http://192.168.0.130:5000', // Ajusta según tu backend
 });
 
 // Agregar un interceptor para incluir el token en cada solicitud
