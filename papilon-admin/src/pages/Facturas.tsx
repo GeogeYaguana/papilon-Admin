@@ -1,3 +1,4 @@
+// src/pages/Facturas/Facturas.tsx
 import React, { useState, useEffect } from 'react';
 import { FacturaService, Factura } from '../services/FacturaService';
 import { useAuth } from '../hooks/useAuth';
@@ -5,7 +6,7 @@ import axiosInstance from '../services/axiosInstance';
 import styles from './Facturas.module.css';
 
 const Facturas: React.FC = () => {
-  const { state } = useAuth(); // Obtener el ID del usuario del contexto
+  const { state } = useAuth();
   const [facturas, setFacturas] = useState<Factura[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
@@ -13,7 +14,6 @@ const Facturas: React.FC = () => {
   const [facturaSeleccionada, setFacturaSeleccionada] = useState<number | null>(null);
   const [nuevoEstado, setNuevoEstado] = useState<string>('');
 
-  // Cargar facturas al montar
   useEffect(() => {
     const fetchFacturas = async () => {
       setLoading(true);
@@ -34,7 +34,6 @@ const Facturas: React.FC = () => {
     }
   }, [state.userId]);
 
-  // Cargar los estados de factura
   useEffect(() => {
     const fetchEstados = async () => {
       try {
@@ -48,7 +47,6 @@ const Facturas: React.FC = () => {
     fetchEstados();
   }, []);
 
-  // Manejar cambio de estado de factura
   const handleChangeEstado = async () => {
     if (!facturaSeleccionada || !nuevoEstado) return;
 
@@ -56,17 +54,12 @@ const Facturas: React.FC = () => {
     setError('');
 
     try {
-
-      // Actualizar el estado local de las facturas con la factura actualizada
+      const facturaActualizada = await FacturaService.updateFacturaEstado(facturaSeleccionada, nuevoEstado);
       setFacturas((prevFacturas) =>
         prevFacturas.map((factura) =>
-          factura.id_factura === facturaSeleccionada
-            ? { ...factura, estado: nuevoEstado } // Actualiza solo el estado de la factura correspondiente
-            : factura
+          factura.id_factura === facturaSeleccionada ? facturaActualizada : factura
         )
       );
-
-      // Reinicia las variables de selección
       setFacturaSeleccionada(null);
       setNuevoEstado('');
     } catch (err: any) {
@@ -112,7 +105,6 @@ const Facturas: React.FC = () => {
         </tbody>
       </table>
 
-      {/* Modal para cambiar estado */}
       {facturaSeleccionada && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
